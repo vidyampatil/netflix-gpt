@@ -1,5 +1,3 @@
-import React from 'react'
-
 function VideoTitle({ title, overview }) {
   return (
     <div className="pt-[15%] w-screen aspect-video pt-36 absolute px-24 text-white bg-gradient-to-r from-black via-transparent to-transparent">

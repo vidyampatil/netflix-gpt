@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Header from './Header';
-import { checkValidate } from '../utils/validate'; // Ensure this points to your updated validate.js
+import { checkValidate } from '../utils/validate'; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
@@ -27,13 +27,13 @@ function getFriendlyAuthError(error) {
 const Login = () => {
   const [isSigninForm, setIsSigninFOrm] = useState(true);
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState({}); // THIS IS CRUCIAL: 'errors' is an object
+  const [errors, setErrors] = useState({}); 
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
   const toggleSigninForm = () => {
     setIsSigninFOrm(!isSigninForm);
-    setErrors({}); // Clear errors when toggling form
+    setErrors({}); 
   };
 
   const handleButtonClick = () => {
@@ -42,12 +42,12 @@ const Login = () => {
     const passwordValue = password.current.value;
 
 
-    const validationResults = checkValidate(isSigninForm ? null : nameValue, emailValue, passwordValue); // Pass all values
+    const validationResults = checkValidate(isSigninForm ? null : nameValue, emailValue, passwordValue); 
 
     if (validationResults) {
-      setErrors(validationResults); // Set the errors object
+      setErrors(validationResults); 
     } else {
-      setErrors({}); // Clear errors if validation passes
+      setErrors({}); 
       if (!isSigninForm) {
         createUserWithEmailAndPassword(auth, emailValue, passwordValue)
           .then((userCredential) => {
@@ -63,8 +63,6 @@ const Login = () => {
 
           })
           .catch((error) => {
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
             setErrors({ auth: getFriendlyAuthError(error) });
           });
       } else {
@@ -72,8 +70,6 @@ const Login = () => {
           .then((userCredential) => {
           })
           .catch((error) => {
-            //  const errorCode = error.code;
-            //   const errorMessage = error.message;
             setErrors({ auth: getFriendlyAuthError(error) });
           });
 
@@ -98,7 +94,7 @@ const Login = () => {
               className='p-4 my-4 w-full bg-gray-700'
               ref={name}
             />
-            {errors.name && <p className='text-red-500 text-sm mt-1'>{errors.name}</p>} {/* Correctly display name error */}
+            {errors.name && <p className='text-red-500 text-sm mt-1'>{errors.name}</p>} 
           </>
         )}
 
@@ -116,7 +112,7 @@ const Login = () => {
           className='p-4 my-4 w-full bg-gray-700'
           ref={password}
         />
-        {errors.password && <p className='text-red-500 text-sm mt-1'>{errors.password}</p>} {/* Correctly display password error */}
+        {errors.password && <p className='text-red-500 text-sm mt-1'>{errors.password}</p>} 
         {errors.auth && <p className='text-red-500 text-sm mt-1'>{errors.auth}</p>}
 
         <button
