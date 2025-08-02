@@ -48,9 +48,7 @@ const Login = () => {
       setErrors(validationResults); // Set the errors object
     } else {
       setErrors({}); // Clear errors if validation passes
-      console.log("Form is valid! Proceeding...");
       if (!isSigninForm) {
-        console.log("Signing up with:", nameValue, emailValue, passwordValue);
         createUserWithEmailAndPassword(auth, emailValue, passwordValue)
           .then((userCredential) => {
             const user = userCredential.user;
@@ -63,8 +61,6 @@ const Login = () => {
               setErrors({ auth: getFriendlyAuthError(error) });
             });
 
-            console.log("user", user)
-
           })
           .catch((error) => {
             // const errorCode = error.code;
@@ -74,8 +70,6 @@ const Login = () => {
       } else {
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
-            console.log("✅ Sign-in success");
-            console.log("User object:", userCredential.user);
           })
           .catch((error) => {
             //  const errorCode = error.code;
